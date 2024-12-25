@@ -3,6 +3,9 @@ import MainLayout from "../layouts/MainLayout";
 import Home from "../pages/Home";
 import Login from "../componenets/Login";
 import SignUp from "../componenets/SignUp";
+import AddTutorials from "../pages/AddTutorials";
+import FindTutors from "../pages/FindTutors";
+import TutorDetails from "../pages/TutorDetails";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -14,7 +17,7 @@ const router = createBrowserRouter([
       },
       {
         path: "find-tutors",
-        element: <h1>Find tutors</h1>
+        element: <FindTutors/>
       },
       {
         path: "login",
@@ -23,6 +26,14 @@ const router = createBrowserRouter([
       {
         path: "signup",
         element: <SignUp/>
+      },
+      {
+        path: "addTutorials",
+        element: <AddTutorials/>
+      },
+      {
+        path: "/tutor/:details",
+        element: <TutorDetails/>
       },
     ],
   },
