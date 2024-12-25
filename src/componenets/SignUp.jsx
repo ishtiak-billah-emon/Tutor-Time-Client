@@ -3,10 +3,8 @@ import { AuthContext } from "../provider/AuthProvider";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
-
-
 const SignUp = () => {
-  const { createUser, setUser } = useContext(AuthContext);
+  const { createUser, setUser, updateUserProfile } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleSignup = (e) => {
@@ -21,12 +19,14 @@ const SignUp = () => {
 
     createUser(email, password)
       .then((result) => {
-        setUser(result.user);
+        
         // Signed up
         // database connection
-         const createdAt = result?.user?.metadata?.creationTime;
-         const user = { name, image, email, createdAt };
+        const createdAt = result?.user?.metadata?.creationTime;
+        const user = { name, image, email, createdAt };
+        setUser(result.user);
         //  Update profile
+        updateUserProfile({ displayName: name, photoURL: image });
 
         fetch("http://localhost:3000/users", {
           method: "POST",
@@ -43,18 +43,13 @@ const SignUp = () => {
               navigate("/");
             }
           });
-         
-         
-        
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         // console.log( errorCode, errorMessage);
         // console.log( errorCode, errorMessage);
-
       });
-    
   };
   return (
     <div className="hero bg-base-200 min-h-screen">
