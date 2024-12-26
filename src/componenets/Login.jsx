@@ -1,9 +1,11 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../provider/AuthProvider";
 import Swal from "sweetalert2";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import googleLogo from "../assets/Images/google.png";
+
 const Login = () => {
-  const { signInUser, setUser } = useContext(AuthContext);
+  const { signInUser, setUser, loginWithGoogle } = useContext(AuthContext);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -43,17 +45,47 @@ const Login = () => {
         Swal.fire("Login failed. Please try again.");
       });
   };
+
+  const handleGoogleLogin = async () => {
+    try {
+      await loginWithGoogle();
+      Swal.fire("Successfully Logged in!");
+      navigate(location?.state ? location.state : "/");
+    } catch (error) {
+      console.error("Google login failed: ", error);
+      setError({
+        ...error,
+        googleLogin: error.message,
+      });
+      Swal.fire("Google login failed. Please try again.");
+    }
+  };
+
   return (
-    <div className="hero bg-base-200 min-h-screen">
-      <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-        <form className="card-body" onSubmit={handleLogin}>
+    <div className=" flex justify-center mt-12 bg-white min-h-screen">
+      <div className="card bg-base-100 w-full max-w-sm  md:max-w-xl shrink-0 ">
+        <div className="mb-2 md:mb-8">
+          <h1 className="font-bold text-3xl mb-3 md:mb-6">Log in</h1>
+
+          <div>
+            <button
+              onClick={handleGoogleLogin}
+              className="btn border-2 border-black bg-white hover:bg-slate-50 flex items-center justify-center w-10/12"
+            >
+              <img className="w-6" src={googleLogo} alt="" />
+              <p className="font-semibold text-base">Continue with Google</p>
+            </button>
+          </div>
+        </div>
+        <div className="divider w-10/12">or</div>
+        <form className="w-10/12" onSubmit={handleLogin}>
           <div className="form-control">
             <label className="label">
               <span className="label-text">Email</span>
             </label>
             <input
               type="email"
-              placeholder="email"
+              placeholder="Your email"
               name="email"
               className="input input-bordered"
               required
@@ -65,7 +97,7 @@ const Login = () => {
             </label>
             <input
               type="password"
-              placeholder="password"
+              placeholder="Your password"
               name="password"
               className="input input-bordered"
               required
@@ -77,7 +109,16 @@ const Login = () => {
             </label>
           </div>
           <div className="form-control mt-6">
-            <button className="btn btn-primary">Login</button>
+            <button className="btn border-2 border-black bg-[#f66962] text-black font-bold">
+              Login
+            </button>
+            <p className="text-center mt-2 md:mt-6 text-[#9F9F9F]">
+              Don't have an account?
+              <Link to={"/signup"}>
+                {" "}
+                <span className="underline">Sign Up here </span>
+              </Link>{" "}
+            </p>
           </div>
         </form>
       </div>
