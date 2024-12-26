@@ -6,10 +6,17 @@ import SignUp from "../componenets/SignUp";
 import AddTutorials from "../pages/AddTutorials";
 import FindTutors from "../pages/FindTutors";
 import TutorDetails from "../pages/TutorDetails";
+import MyBookedTutor from "../pages/MyBookedTutor";
+import MyTutorials from "../pages/MyTutorials";
+import UpdateTutorial from "../pages/UpdateTutorial";
+import PrivateRoute from "./PrivateRoute";
+import Categories from "../componenets/Categories";
+import ErrorPage from "../componenets/ErrorPage";
 const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "/",
@@ -17,23 +24,61 @@ const router = createBrowserRouter([
       },
       {
         path: "find-tutors",
-        element: <FindTutors/>
+        element: <FindTutors />,
       },
       {
         path: "login",
-        element: <Login/>
+        element: <Login />,
       },
       {
         path: "signup",
-        element: <SignUp/>
+        element: <SignUp />,
       },
       {
         path: "addTutorials",
-        element: <AddTutorials/>
+        element: (
+          <PrivateRoute>
+            <AddTutorials />
+          </PrivateRoute>
+        ),
       },
       {
-        path: "/tutor/:details",
-        element: <TutorDetails/>
+        path: "/tutor/:id",
+        element: (
+          <PrivateRoute>
+            <TutorDetails />
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(`http://localhost:3000/tutorials/${params.id}`),
+      },
+      {
+        path: "/bookedTutorial",
+        element: (
+          <PrivateRoute>
+            <MyBookedTutor />,
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/myTutorials",
+        element: (
+          <PrivateRoute>
+            <MyTutorials />,
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/updateTutorial/:id",
+        element: (
+          <PrivateRoute>
+            <UpdateTutorial />,
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/categories",
+        element: <Categories />,
       },
     ],
   },
