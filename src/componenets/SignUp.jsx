@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../provider/AuthProvider";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
+import {Link, useNavigate } from "react-router-dom";
 
 const SignUp = () => {
   const { createUser, setUser, updateUserProfile } = useContext(AuthContext);
@@ -52,9 +52,12 @@ const SignUp = () => {
       });
   };
   return (
-    <div className="hero bg-base-200 min-h-screen">
-      <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-        <form className="card-body" onSubmit={handleSignup}>
+    <div className="hero bg-white  mt-12">
+      <div className="card bg-base-100 w-full max-w-sm  ">
+        <div>
+          <h1 className="text-3xl font-bold mb-3 md:mb-6 ">Sign Up</h1>
+        </div>
+        <form className="" onSubmit={handleSignup}>
           {/* Name */}
           <div className="form-control">
             <label className="label">
@@ -88,7 +91,7 @@ const SignUp = () => {
             </label>
             <input
               type="email"
-              placeholder="email"
+              placeholder="Enter your email"
               name="email"
               className="input input-bordered"
               required
@@ -101,15 +104,24 @@ const SignUp = () => {
             </label>
             <input
               type="password"
-              placeholder="password"
+              placeholder="Enter a password"
               name="password"
               className="input input-bordered"
               required
             />
           </div>
           <div className="form-control mt-6">
-            <button className="btn btn-primary">Sign Up</button>
+            <button className="btn border-2 border-black bg-[#f66962] text-black font-bold">
+              Sign Up
+            </button>
           </div>
+          <p className="text-center mt-3 md:mt-6 text-[#9F9F9F]">
+            Already have an account?
+            <Link to={"/login"}>
+              {" "}
+              <span className="underline">Login </span>
+            </Link>{" "}
+          </p>
         </form>
       </div>
     </div>
