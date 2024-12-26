@@ -6,7 +6,7 @@ const Stats = () => {
   const [userCount, setUserCount] = useState(0);
 
   useEffect(() => {
-    fetch("http://localhost:3000/tutorials")
+    fetch("https://tutortime-server.vercel.app/tutorials")
       .then((res) => res.json())
       .then((data) => {
         const uniqueEmails = new Set(data.map((tutor) => tutor.email));
@@ -17,7 +17,7 @@ const Stats = () => {
       })
       .catch((error) => console.error("Error fetching tutorials:", error));
 
-    fetch("http://localhost:3000/users")
+    fetch("https://tutortime-server.vercel.app/users")
       .then((res) => res.json())
       .then((data) => setUserCount(data.length))
       .catch((error) => console.error("Error fetching users:", error));

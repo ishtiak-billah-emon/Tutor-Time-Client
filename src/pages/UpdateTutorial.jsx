@@ -3,7 +3,6 @@ import { AuthContext } from "../provider/AuthProvider";
 import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 
-
 const UpdateTutorial = () => {
   const { user } = useContext(AuthContext);
   // console.log("user", user);
@@ -11,7 +10,7 @@ const UpdateTutorial = () => {
   const [tutorial, setTutorial] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/tutorials/${id}`)
+    fetch(`https://tutortime-server.vercel.app/tutorials/${id}`)
       .then((res) => res.json())
       .then((data) => setTutorial(data));
   }, [id]);
@@ -20,43 +19,52 @@ const UpdateTutorial = () => {
     return <div>Loading...</div>; // Show a loading state while data is being fetched
   }
 
-  const { _id, name, email, photo, language, price, description, rating } = tutorial;
+  const { _id, name, email, photo, language, price, description, rating } =
+    tutorial;
 
-const handleUpdate = e =>{
-   e.preventDefault();
-   const form = e.target;
-   const name = form.name.value;
-   const email = form.email.value;
-   const photo = form.photo.value;
-   const language = form.language.value;
-   const price = form.price.value;
-   const description = form.description.value;
-   const rating = form.rating.value;
-   const updatedTutorial = {_id, name, email, photo, language, price, description, rating };
+  const handleUpdate = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const name = form.name.value;
+    const email = form.email.value;
+    const photo = form.photo.value;
+    const language = form.language.value;
+    const price = form.price.value;
+    const description = form.description.value;
+    const rating = form.rating.value;
+    const updatedTutorial = {
+      _id,
+      name,
+      email,
+      photo,
+      language,
+      price,
+      description,
+      rating,
+    };
 
-
-   fetch(`http://localhost:3000/updateTutorial/${_id}`, {
-     method: "PUT",
-     headers: {
-       "content-type": "application/json",
-     },
-     body: JSON.stringify(updatedTutorial),
-   })
-     .then((res) => res.json())
-     .then((data) => {
-       // console.log(data);
-       if (data.modifiedCount) {
-         // console.log("successfully updated");
-         Swal.fire({
-           title: "Success!",
-           text: "Tutorial updated successfully",
-           icon: "success",
-           confirmButtonText: "Ok",
-         });
-         e.target.reset();
-       }
-     });
-}
+    fetch(`https://tutortime-server.vercel.app/updateTutorial/${_id}`, {
+      method: "PUT",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(updatedTutorial),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        // console.log(data);
+        if (data.modifiedCount) {
+          // console.log("successfully updated");
+          Swal.fire({
+            title: "Success!",
+            text: "Tutorial updated successfully",
+            icon: "success",
+            confirmButtonText: "Ok",
+          });
+          e.target.reset();
+        }
+      });
+  };
 
   return (
     <div className="max-w-7xl mx-auto p-6 mt-6 md:shadow-md md:rounded-lg">

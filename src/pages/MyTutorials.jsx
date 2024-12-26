@@ -10,7 +10,7 @@ const MyTutorials = () => {
   const navigate = useNavigate();
   const [tutorials, setTutorials] = useState([]);
   useEffect(() => {
-    fetch(`http://localhost:3000/myTutorials/${email}`)
+    fetch(`https://tutortime-server.vercel.app/myTutorials/${email}`)
       .then((res) => res.json())
       .then((data) => setTutorials(data));
   }, [email]);
@@ -20,7 +20,7 @@ const MyTutorials = () => {
     return (
       <>
         <div className="flex justify-center mt-12">
-          <NoContent/>
+          <NoContent />
         </div>
       </>
     );
@@ -38,7 +38,7 @@ const MyTutorials = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/tutorials/${_id}`, {
+        fetch(`https://tutortime-server.vercel.app/tutorials/${_id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())
@@ -49,10 +49,11 @@ const MyTutorials = () => {
                 text: "Your Tutorial has been deleted.",
                 icon: "success",
               });
-              const remaining = tutorials.filter((tutorial) => tutorial._id !== _id);
+              const remaining = tutorials.filter(
+                (tutorial) => tutorial._id !== _id
+              );
               setTutorials(remaining);
             }
-            
           });
       }
     });

@@ -18,7 +18,7 @@ const TutorDetails = () => {
       price,
       userEmail,
     };
-    fetch("http://localhost:3000/bookedTutorial", {
+    fetch("https://tutortime-server.vercel.app/bookedTutorial", {
       method: "POST",
       headers: {
         "content-type": "application/json",

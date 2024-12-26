@@ -7,7 +7,7 @@ const Categories = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:3000/tutorials")
+    fetch("https://tutortime-server.vercel.app/tutorials")
       .then((res) => res.json())
       .then((data) => {
         const distinctLanguages = data.reduce((acc, item) => {
@@ -23,7 +23,9 @@ const Categories = () => {
 
   return (
     <section className="p-4 md:p-0">
-      <h1 className="text-lg font-semibold mb-4 md:text-3xl md:font-bold md:my-12">Discover the Perfect Tutor for Your Learning Journey</h1>
+      <h1 className="text-lg font-semibold mb-4 md:text-3xl md:font-bold md:my-12">
+        Discover the Perfect Tutor for Your Learning Journey
+      </h1>
       <div className="grid grid-cols-2 md:grid-cols-3 gap-1 md:gap-4 ">
         {categories.map((category, index) => (
           <button

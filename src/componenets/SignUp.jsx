@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../provider/AuthProvider";
 import Swal from "sweetalert2";
-import {Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const SignUp = () => {
   const { createUser, setUser, updateUserProfile } = useContext(AuthContext);
@@ -19,7 +19,6 @@ const SignUp = () => {
 
     createUser(email, password)
       .then((result) => {
-        
         // Signed up
         // database connection
         const createdAt = result?.user?.metadata?.creationTime;
@@ -28,7 +27,7 @@ const SignUp = () => {
         //  Update profile
         updateUserProfile({ displayName: name, photoURL: image });
 
-        fetch("http://localhost:3000/users", {
+        fetch("https://tutortime-server.vercel.app/users", {
           method: "POST",
           headers: {
             "content-type": "application/json",

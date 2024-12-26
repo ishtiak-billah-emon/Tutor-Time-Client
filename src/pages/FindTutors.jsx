@@ -11,18 +11,17 @@ const FindTutors = () => {
 
   useEffect(() => {
     const url = category
-      ? `http://localhost:3000/tutorials?category=${category}`
-      : `http://localhost:3000/tutorials`;
+      ? `https://tutortime-server.vercel.app/tutorials?category=${category}`
+      : `https://tutortime-server.vercel.app/tutorials`;
 
     fetch(url)
       .then((res) => res.json())
       .then((data) => {
         setTutors(data);
-        setFilteredTutors(data); 
+        setFilteredTutors(data);
       })
       .catch((error) => console.error("Error fetching data:", error));
   }, [category]);
-
 
   const handleSearch = (event) => {
     const searchValue = event.target.value.toLowerCase();
@@ -50,7 +49,7 @@ const FindTutors = () => {
           className="grow"
           placeholder="Search by language"
           value={searchTerm}
-          onChange={handleSearch} 
+          onChange={handleSearch}
         />
         <svg
           xmlns="http://www.w3.org/2000/svg"

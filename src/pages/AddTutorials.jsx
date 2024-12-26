@@ -26,11 +26,11 @@ const AddTutorials = () => {
       price,
       description,
       rating,
-      review
+      review,
     };
 
     // add to the database
-    fetch("http://localhost:3000/tutorials", {
+    fetch("https://tutortime-server.vercel.app/tutorials", {
       method: "POST",
       headers: {
         "content-type": "application/json",

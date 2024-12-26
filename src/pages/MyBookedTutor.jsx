@@ -8,19 +8,17 @@ const MyBookedTutor = () => {
   const email = user.email;
   const [tutors, setTutors] = useState([]);
   useEffect(() => {
-    // fetch(`http://localhost:3000/bookedTutorial?email=${email}`)
-    fetch(`http://localhost:3000/bookedTutorial/${email}`)
+    // fetch(`https://tutortime-server.vercel.app/bookedTutorial?email=${email}`)
+    fetch(`https://tutortime-server.vercel.app/bookedTutorial/${email}`)
       .then((res) => res.json())
       .then((data) => setTutors(data));
   }, [email]);
 
   // handle review
   const handleReview = (tutorId) => {
-    fetch(`http://localhost:3000/tutorials/review/${tutorId}`, {
+    fetch(`https://tutortime-server.vercel.app/tutorials/review/${tutorId}`, {
       method: "PATCH",
-      headers:{
-        
-      }
+      headers: {},
     })
       .then((res) => res.json())
       .then((data) => {
